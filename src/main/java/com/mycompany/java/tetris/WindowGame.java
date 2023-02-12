@@ -1,5 +1,8 @@
 package com.mycompany.java.tetris;
+
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class WindowGame {
     public static final int WIDTH = 445, HEIGHT = 629;
 
@@ -33,6 +36,14 @@ public class WindowGame {
         window.add(board);
         board.startGame();
         window.revalidate();
+    }
+
+    public void exitGame() {
+        if (JOptionPane.showConfirmDialog(null, "ต้องการกลับไปหน้าหลัก?", null,
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            window.dispose();
+            new MainMenu().setVisible(true);
+        }
     }
 
     public static void main(String[] args) {

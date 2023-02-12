@@ -50,15 +50,19 @@ public class Title extends JPanel implements KeyListener{
 				30 - instructions.getHeight()/2 + 150, null);
 		
                 g.setColor(Color.WHITE);
-		g.drawString("Press space to play!", 150, WindowGame.HEIGHT / 2 + 100);
+                g.drawString("กดปุ่ม spacebat เพื่อเริ่มเล่นเกม!", 150, WindowGame.HEIGHT / 2 + 100);
+                // drawString esc to exit
+                g.drawString("กดปุ่ม esc เพื่อออกจากเกม!", 150, WindowGame.HEIGHT / 2 + 150);
 		
 		
 	}	
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(e.getKeyChar() == KeyEvent.VK_SPACE) {
+        if (e.getKeyChar() == KeyEvent.VK_SPACE) {
             window.startTetris();
+        }else if(e.getKeyChar() == KeyEvent.VK_ESCAPE){
+            window.exitGame();
         }
     }
 
