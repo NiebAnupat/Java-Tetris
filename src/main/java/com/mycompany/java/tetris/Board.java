@@ -1,4 +1,5 @@
 package com.mycompany.java.tetris;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -11,13 +12,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-public class Board extends JPanel implements KeyListener, MouseListener, MouseMotionListener{
-    
-	//Assets
+
+public class Board extends JPanel implements KeyListener, MouseListener, MouseMotionListener {
+
+    // Assets
     /**
      *
      */
@@ -25,29 +29,29 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
 
     private BufferedImage pause, refresh;
 
-	//board dimensions (the playing area)
+    // board dimensions (the playing area)
     private final int boardHeight = 20, boardWidth = 10;
 
-	// block size
+    // block size
     public static final int blockSize = 30;
 
-	// field
+    // field
     private Color[][] board = new Color[boardHeight][boardWidth];
 
-	// array with all the possible shapes
+    // array with all the possible shapes
     private Shape[] shapes = new Shape[7];
 
-	// currentShape
+    // currentShape
     private static Shape currentShape, nextShape;
 
-	// game loop
+    // game loop
     private Timer looper;
 
     private int FPS = 60;
 
     private int delay = 1000 / FPS;
 
-	// mouse events variables
+    // mouse events variables
     private int mouseX, mouseY;
 
     private boolean leftClick = false;
@@ -57,11 +61,11 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
     private boolean gamePaused = false;
 
     private boolean gameOver = false;
-    
-    private Color[] colors = {Color.decode("#ed1c24"), Color.decode("#ff7f27"), Color.decode("#fff200"), 
-        Color.decode("#22b14c"), Color.decode("#00a2e8"), Color.decode("#a349a4"), Color.decode("#3f48cc")};
+
+    private Color[] colors = { Color.decode("#ed1c24"), Color.decode("#ff7f27"), Color.decode("#fff200"),
+            Color.decode("#22b14c"), Color.decode("#00a2e8"), Color.decode("#a349a4"), Color.decode("#3f48cc") };
     private Random random = new Random();
-	// buttons press lapse
+    // buttons press lapse
     private Timer buttonLapse = new Timer(300, new ActionListener() {
 
         @Override
@@ -70,13 +74,24 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         }
     });
 
-	// score
+    // score
     private int score = 0;
 
     public Board() {
 
-        pause = ImageLoader.loadImage("/pause.png");
-        refresh = ImageLoader.loadImage("/refresh.png");
+        // pause = ImageLoader.loadImage("/pause.png");
+        // refresh = ImageLoader.loadImage("/refresh.png");
+        try {
+            // load image as buffered image
+            pause = ImageIO.read(
+                    getClass().getResource("/com/mycompany/java/tetris/Pause.png"));
+
+            refresh = ImageIO.read(
+                    getClass().getResource("/com/mycompany/java/tetris/refresh.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         mouseX = 0;
         mouseY = 0;
@@ -85,42 +100,42 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         refreshBounds = new Rectangle(350, 500 - refresh.getHeight() - 20, refresh.getWidth(),
                 refresh.getHeight() + refresh.getHeight() / 2);
 
-		// create game looper
+        // create game looper
         looper = new Timer(delay, new GameLooper());
 
-		// create shapes
-        shapes[0] = new Shape(new int[][]{
-            {1, 1, 1, 1} // I shape;
+        // create shapes
+        shapes[0] = new Shape(new int[][] {
+                { 1, 1, 1, 1 } // I shape;
         }, this, colors[0]);
 
-        shapes[1] = new Shape(new int[][]{
-            {1, 1, 1},
-            {0, 1, 0}, // T shape;
+        shapes[1] = new Shape(new int[][] {
+                { 1, 1, 1 },
+                { 0, 1, 0 }, // T shape;
         }, this, colors[1]);
 
-        shapes[2] = new Shape(new int[][]{
-            {1, 1, 1},
-            {1, 0, 0}, // L shape;
+        shapes[2] = new Shape(new int[][] {
+                { 1, 1, 1 },
+                { 1, 0, 0 }, // L shape;
         }, this, colors[2]);
 
-        shapes[3] = new Shape(new int[][]{
-            {1, 1, 1},
-            {0, 0, 1}, // J shape;
+        shapes[3] = new Shape(new int[][] {
+                { 1, 1, 1 },
+                { 0, 0, 1 }, // J shape;
         }, this, colors[3]);
 
-        shapes[4] = new Shape(new int[][]{
-            {0, 1, 1},
-            {1, 1, 0}, // S shape;
+        shapes[4] = new Shape(new int[][] {
+                { 0, 1, 1 },
+                { 1, 1, 0 }, // S shape;
         }, this, colors[4]);
 
-        shapes[5] = new Shape(new int[][]{
-            {1, 1, 0},
-            {0, 1, 1}, // Z shape;
+        shapes[5] = new Shape(new int[][] {
+                { 1, 1, 0 },
+                { 0, 1, 1 }, // Z shape;
         }, this, colors[5]);
 
-        shapes[6] = new Shape(new int[][]{
-            {1, 1},
-            {1, 1}, // O shape;
+        shapes[6] = new Shape(new int[][] {
+                { 1, 1 },
+                { 1, 1 }, // O shape;
         }, this, colors[6]);
 
     }
@@ -168,7 +183,9 @@ public class Board extends JPanel implements KeyListener, MouseListener, MouseMo
         currentShape.render(g);
 
         if (stopBounds.contains(mouseX, mouseY)) {
-            g.drawImage(pause.getScaledInstance(pause.getWidth() + 3, pause.getHeight() + 3, BufferedImage.SCALE_DEFAULT), stopBounds.x + 3, stopBounds.y + 3, null);
+            g.drawImage(
+                    pause.getScaledInstance(pause.getWidth() + 3, pause.getHeight() + 3, BufferedImage.SCALE_DEFAULT),
+                    stopBounds.x + 3, stopBounds.y + 3, null);
         } else {
             g.drawImage(pause, stopBounds.x, stopBounds.y, null);
         }

@@ -10,7 +10,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 public class Title extends JPanel implements KeyListener{
@@ -22,7 +24,14 @@ public class Title extends JPanel implements KeyListener{
 	
 	
 	public Title(WindowGame window){
-                instructions = ImageLoader.loadImage("/arrow.png");
+        // instructions = ImageLoader.loadImage("/arrow.png");
+        try {
+            instructions = ImageIO.read(getClass().getResource("/com/mycompany/java/tetris/arrow.png"));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+                
 		timer = new Timer(1000/60, new ActionListener(){
 
 			@Override
@@ -50,9 +59,9 @@ public class Title extends JPanel implements KeyListener{
 				30 - instructions.getHeight()/2 + 150, null);
 		
                 g.setColor(Color.WHITE);
-                g.drawString("กดปุ่ม spacebat เพื่อเริ่มเล่นเกม!", 150, WindowGame.HEIGHT / 2 + 100);
+                g.drawString("กดปุ่ม Spacebar เพื่อเริ่มเล่นเกม!", 150, WindowGame.HEIGHT / 2 + 100);
                 // drawString esc to exit
-                g.drawString("กดปุ่ม esc เพื่อออกจากเกม!", 150, WindowGame.HEIGHT / 2 + 150);
+                g.drawString("กดปุ่ม ESC เพื่อออกจากเกม!", 150, WindowGame.HEIGHT / 2 + 150);
 		
 		
 	}	
