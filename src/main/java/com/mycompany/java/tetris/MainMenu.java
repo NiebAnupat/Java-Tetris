@@ -177,6 +177,11 @@ public class MainMenu extends javax.swing.JFrame {
         PLAY_BTN.setFont(new java.awt.Font("Noto Sans Thai", 1, 24)); // NOI18N
         PLAY_BTN.setForeground(new java.awt.Color(255, 255, 255));
         PLAY_BTN.setText("เข้าสู่เกม");
+        PLAY_BTN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PLAY_BTNActionPerformed(evt);
+            }
+        });
 
         HELP_BTN.setBackground(new java.awt.Color(255, 153, 51));
         HELP_BTN.setFont(new java.awt.Font("Noto Sans Thai", 1, 24)); // NOI18N
@@ -382,7 +387,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addGroup(HELP_PAGELayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -501,9 +506,9 @@ public class MainMenu extends javax.swing.JFrame {
                     .addComponent(jLabel7)
                     .addComponent(jLabel12))
                 .addGap(18, 18, 18)
-                .addGroup(ABOUT_PAGELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel14))
+                .addGroup(ABOUT_PAGELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(ABOUT_PAGELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -543,6 +548,12 @@ public class MainMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
          Tab.setSelectedIndex(0);
     }//GEN-LAST:event_about_back_btnActionPerformed
+
+    private void PLAY_BTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PLAY_BTNActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new WindowGame();
+    }//GEN-LAST:event_PLAY_BTNActionPerformed
 
     private void exitBTNActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_exitBTNActionPerformed
         // TODO add your handling code here:
