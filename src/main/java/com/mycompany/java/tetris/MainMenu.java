@@ -102,6 +102,7 @@ public class MainMenu extends javax.swing.JFrame {
         HELP_BTN.setBorderPainted(false);
         ABOUT_BTN.setBorderPainted(false);
         help_back_btn.setBorderPainted(false);
+        about_back_btn.setBorderPainted(false);
 
 
     }
